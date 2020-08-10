@@ -1,11 +1,7 @@
 .. image:: https://img.shields.io/badge/sitcomtn--002-lsst.io-brightgreen.svg
    :target: https://sitcomtn-002.lsst.io
-.. image:: https://travis-ci.com/lsst-sitcom/sitcomtn-002.svg
-   :target: https://travis-ci.com/lsst-sitcom/sitcomtn-002
-..
-  Uncomment this section and modify the DOI strings to include a Zenodo DOI badge in the README
-  .. image:: https://zenodo.org/badge/doi/10.5281/zenodo.#####.svg
-     :target: http://dx.doi.org/10.5281/zenodo.#####
+.. image:: https://github.com/lsst-sitcom/sitcomtn-002/workflows/CI/badge.svg
+   :target: https://github.com/lsst-sitcom/sitcomtn-002/actions/
 
 ##############################################
 Performance Assessment of the LSST Startracker
@@ -14,65 +10,54 @@ Performance Assessment of the LSST Startracker
 SITCOMTN-002
 ============
 
-This tech note aims at evaluating the LSST StarTrack for the purpose of verification/validatioon of the LSST TMA point and tracking specification.  This note also include the proposed testing procedures utilizing the StarTracker
+This tech note aims at evaluating the LSST StarTrack for the purpose of verification/validation of the LSST TMA point and tracking specification.  This note also include the proposed testing procedures utilizing the StarTracker.
 
-**Links:**
+Links
+=====
 
-- Publication URL: https://sitcomtn-002.lsst.io
-- Alternative editions: https://sitcomtn-002.lsst.io/v
-- GitHub repository: https://github.com/lsst-sitcom/sitcomtn-002
-- Build system: https://travis-ci.com/lsst-sitcom/sitcomtn-002
+- Live drafts: https://sitcomtn-002.lsst.io
+- GitHub: https://github.com/lsst-sitcom/sitcomtn-002
 
+Build
+=====
 
-Build this technical note
-=========================
+This repository includes lsst-texmf_ as a Git submodule.
+Clone this repository::
 
-You can clone this repository and build the technote locally with `Sphinx`_:
+    git clone --recurse-submodules https://github.com/lsst-sitcom/sitcomtn-002
 
-.. code-block:: bash
+Compile the PDF::
 
-   git clone https://github.com/lsst-sitcom/sitcomtn-002
-   cd sitcomtn-002
-   pip install -r requirements.txt
-   make html
+    make
 
-.. note::
+Clean built files::
 
-   In a Conda_ environment, ``pip install -r requirements.txt`` doesn't work as expected.
-   Instead, ``pip`` install the packages listed in ``requirements.txt`` individually.
+    make clean
 
-The built technote is located at ``_build/html/index.html``.
+Updating acronyms
+-----------------
 
-Editing this technical note
-===========================
+A table of the technote's acronyms and their definitions are maintained in the ``acronyms.tex`` file, which is committed as part of this repository.
+To update the acronyms table in ``acronyms.tex``::
 
-You can edit the ``index.rst`` file, which is a reStructuredText document.
-The `DM reStructuredText Style Guide`_ is a good resource for how we write reStructuredText.
+    make acronyms.tex
 
-Remember that images and other types of assets should be stored in the ``_static/`` directory of this repository.
-See ``_static/README.rst`` for more information.
+*Note: this command requires that this repository was cloned as a submodule.*
 
-The published technote at https://sitcomtn-002.lsst.io will be automatically rebuilt whenever you push your changes to the ``master`` branch on `GitHub <https://github.com/lsst-sitcom/sitcomtn-002>`_.
+The acronyms discovery code scans the LaTeX source for probable acronyms.
+You can ensure that certain strings aren't treated as acronyms by adding them to the `skipacronyms.txt <./skipacronyms.txt>`_ file.
 
-Updating metadata
-=================
+The lsst-texmf_ repository centrally maintains definitions for LSST acronyms.
+You can also add new acronym definitions, or override the definitions of acronyms, by editing the `myacronyms.txt <./myacronyms.txt>`_ file.
 
-This technote's metadata is maintained in ``metadata.yaml``.
-In this metadata you can edit the technote's title, authors, publication date, etc..
-``metadata.yaml`` is self-documenting with inline comments.
+Updating lsst-texmf
+-------------------
 
-Using the bibliographies
-========================
+`lsst-texmf`_ includes BibTeX files, the ``lsstdoc`` class file, and acronym definitions, among other essential tooling for LSST's LaTeX documentation projects.
+To update to a newer version of `lsst-texmf`_, you can update the submodule in this repository::
 
-The bibliography files in ``lsstbib/`` are copies from `lsst-texmf`_.
-You can update them to the current `lsst-texmf`_ versions with::
+   git submodule update --init --recursive
 
-   make refresh-bib
+Commit, then push, the updated submodule.
 
-Add new bibliography items to the ``local.bib`` file in the root directory (and later add them to `lsst-texmf`_).
-
-.. _Sphinx: http://sphinx-doc.org
-.. _DM reStructuredText Style Guide: https://developer.lsst.io/restructuredtext/style.html
-.. _this repo: ./index.rst
-.. _Conda: http://conda.pydata.org/docs/
-.. _lsst-texmf: https://lsst-texmf.lsst.io
+.. _lsst-texmf: https://github.com/lsst/lsst-texmf
